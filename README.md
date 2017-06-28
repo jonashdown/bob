@@ -6,3 +6,14 @@ LUIS_APP_ID and LUIS_SUBSCRIPTION_KEY
 you will need ocp-apim-subscription-key stored in the env var
 OCP_APIM_SUBSCRIPTION_KEY
 
+Chatbot requires a luis.ai app trained with the following intents
+ * finish
+ * getEmotion
+ * getHappiestArticle
+ * greet
+ * thanks
+ * showHomepage
+ * whatsNew
+ * showMe
+
+
