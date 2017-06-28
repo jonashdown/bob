@@ -1,0 +1,19 @@
+{
+  "name": "bob",
+  "version": "0.0.0",
+  "description": "chat bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "Jon Ashdown",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.7.0",
+    "lodash": "^4.17.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
+    "restify": "^4.3.0"
+  }
+}
