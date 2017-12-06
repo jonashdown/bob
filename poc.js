@@ -8,7 +8,8 @@ module.exports =  {
     const OCP_APIM_SUBSCRIPTION_KEY = process.env.OCP_APIM_SUBSCRIPTION_KEY
     return rp({ 
       method: 'POST',
-      url: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
+      // url: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
+      url: 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
       headers:
       { 
         'ocp-apim-subscription-key': OCP_APIM_SUBSCRIPTION_KEY,
@@ -27,7 +28,7 @@ module.exports =  {
   },
 
   getHomepageStories: function getHomepageStories(homepageJson) {
-    return _.reduce(homepageJson, function(acc, value) {
+    return _.reduce(homepageJson.collections, function(acc, value) {
       return _.concat(acc, value.model);
     }, []);
   },

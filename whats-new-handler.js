@@ -2,7 +2,7 @@ const _ = require('lodash');
 const getHomepage = require('./poc').getHomepageJson;
 
 const getNewest = (body) => {
-  const heroPromos = _.find(body, (hpModule) => {
+  const heroPromos = _.find(body.collections, (hpModule) => {
     return hpModule.type === 'hero-promos';
   });
 
