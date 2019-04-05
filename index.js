@@ -39,14 +39,15 @@ intents.matches('getEmotion', [
         let score = doc.score * 100;
         return sum + score;
       }, 0) / results.documents.length;
+      
       if (happiness < 20) {
         session.send("Very Sad");
       } else if (happiness < 40) {
         session.send('Sad');
       } else if (happiness < 60) {
         session.send('So So');
-        if (Math.round(happiness) === 42) {
-          session.send(prompt('But, The answer to life, the universe and everthing is 42!'));
+        if (Math.round(happiness) >= 42) {
+          session.send(prompt('But, the answer to life, the universe and everthing is 42!'));
         }
       } else if (happiness < 80) {
         session.send('Happy');
@@ -54,7 +55,8 @@ intents.matches('getEmotion', [
         session.send('Very Happy');
       } else {
         session.send('As happy as a kid in a candy store where everything is free')
-      }  
+      }
+      session.send(`Happiness::${happiness}`);
     }).catch(function(err) {
         console.log(err);
     });
@@ -70,10 +72,13 @@ intents.matches('getHappiestArticle', [
         documents = poc.getHomepageStoriesAsDocuments(stories);
         return poc.analyseSentiment(documents);
     }).then(function(results) {
+        const result = poc.sortSentiment(results, 'desc')[0];
+        console.log('Article Score::',result.score * 100);
         const urlOfTheHappiestArticle = poc.sortSentiment(results, 'desc')[0].id;
         const happiest = _.find(stories, (story) => { return story.url === urlOfTheHappiestArticle});
         session.privateConversationData.currentArticle = happiest;
         session.send(prompt(happiest.title));
+       
 
     }).catch(function(err) {
         console.log(err);

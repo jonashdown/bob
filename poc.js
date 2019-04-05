@@ -9,7 +9,7 @@ module.exports =  {
     return rp({ 
       method: 'POST',
       // url: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
-      url: 'https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
+      url: 'https://westeurope.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment',
       headers:
       { 
         'ocp-apim-subscription-key': OCP_APIM_SUBSCRIPTION_KEY,
