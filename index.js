@@ -10,7 +10,7 @@ const recognizer = new builder.LuisRecognizer(`https://westus.api.cognitive.micr
 const intents = new builder.IntentDialog({ recognizers: [recognizer] });
 const whatsNewHandler = require('./whats-new-handler');
 
-const prompt = (message) => message; 
+const prompt = (message) => `🤖 ::> ${message}`; 
 
 bot.dialog('/', intents);
 
@@ -18,7 +18,7 @@ intents.matches('finish', [
   (session, args, next) => {
     
     if (process.env.NODE_ENV === 'development') {
-      session.endConversation(prompt('🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺🍺'));
+      session.endConversation(prompt('gone for 🍺 & 🍔'));
       process.exit(0);
     } else {
       session.endConversation(prompt('good bye'));
@@ -35,26 +35,26 @@ intents.matches('getEmotion', [
         documents = poc.getHomepageStoriesAsDocuments(stories);
         return poc.analyseSentiment(documents);
     }).then(function(results) {
-      let happiness = _.reduce(results.documents, (sum, doc) => {
+      let happiness = Math.round(_.reduce(results.documents, (sum, doc) => {
         let score = doc.score * 100;
         return sum + score;
-      }, 0) / results.documents.length;
+      }, 0) / results.documents.length);
       
       if (happiness < 20) {
-        session.send("Very Sad");
+        session.send(prompt("Very Sad"));
       } else if (happiness < 40) {
-        session.send('Sad');
+        session.send(prompt('Sad'));
       } else if (happiness < 60) {
-        session.send('So So');
-        if (Math.round(happiness) >= 42) {
+        session.send(prompt('So So'));
+        if (happiness > 41 && happiness < 43) {
           session.send(prompt('But, the answer to life, the universe and everthing is 42!'));
         }
       } else if (happiness < 80) {
-        session.send('Happy');
+        session.send(prompt('Happy'));
       } else if (happines < 100) {
-        session.send('Very Happy');
+        session.send(prompt('Very Happy'));
       } else {
-        session.send('As happy as a kid in a candy store where everything is free')
+        session.send(prompt('As happy as a kid in a candy store where everything is free'));
       }
       session.send(`Happiness::${happiness}`);
     }).catch(function(err) {
@@ -100,7 +100,7 @@ intents.matches('thanks', [
 
 intents.matches('showHomepage', [
   function (session, args, next) {
-    session.send('http://www.bbc.co.uk');
+    session.send(prompt('http://www.bbc.co.uk'));
   }
 ]);
 
@@ -119,10 +119,10 @@ intents.matches('whatsNew', [
 intents.matches('showMe', [
   function (session, args, next) {
     if (session.privateConversationData.currentArticle) {
-      session.send(session.privateConversationData.currentArticle.url);
+      session.send(prompt(session.privateConversationData.currentArticle.url));
     }
     else {
-      session.send('http://www.bbc.co.uk');
+      session.send(prompt('http://www.bbc.co.uk'));
     }
   }
 ]);
